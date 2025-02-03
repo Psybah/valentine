@@ -26,7 +26,7 @@ git clone https://github.com/naveen-kumawat/Flower.git
 
 1. Clone the repository:
 ```bash
-git clone [your-repo-url]
+git clone https://github.com/Psybah/valentine.git
 ```
 
 2. Install dependencies:
