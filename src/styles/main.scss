@@ -1,0 +1,222 @@
+@use 'base/variables';
+@use 'components/flower';
+@use 'components/grass';
+@use 'components/animations';
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--dark-color);
+  overflow: hidden;
+  perspective: 1000px;
+  padding: 50px 0px;
+}
+
+.night {
+  position: fixed;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  filter: blur(0.1vmin);
+}
+
+.flowers {
+  position: relative;
+  transform: scale(0.9);
+}
+
+.proposal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  text-align: center;
+  color: white;
+  animation: fade-in 1s ease-out;
+  width: 90%;
+  max-width: 600px;
+  padding: 1rem;
+}
+
+.proposal-text {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  animation: sparkle 1.5s infinite;
+  line-height: 1.2;
+}
+
+.button-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 60px;
+  width: 100%;
+}
+
+.proposal-button {
+  padding: 1rem 2rem;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.yes-button {
+  z-index: 1;
+  background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+  color: white;
+  position: absolute;
+  animation: pulse 2s infinite;
+  
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+  }
+}
+
+.no-button {
+  z-index: 2;
+  background: #6c757d;
+  color: white;
+  position: absolute;
+  left: calc(50% + 4rem);
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px);
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.popup-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  position: relative;
+  text-align: center;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  animation: scale-in 0.3s ease-out;
+}
+
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.floating-heart {
+  position: fixed;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  animation: float-up 10s linear;
+  z-index: 1;
+  pointer-events: none;
+  top: 100%;
+}
+
+.sparkle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  animation: sparkle-fade 1s linear;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.5),
+      0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    text-shadow: 
+      0 0 15px rgba(255, 255, 255, 0.7),
+      0 0 25px rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkle-fade {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
